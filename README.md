@@ -21,6 +21,9 @@ python main.py
 - `log_file`: 所有日志的文件
 - `log_err_file` 错误日志的文件
 - `log_warn_file` 警告日志的文件
+# BUGS
+
+2019.4.28 下载总是404
 
 # License
 
