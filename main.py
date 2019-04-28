@@ -8,20 +8,15 @@
 
 from bs4 import BeautifulSoup
 import requests
-import urllib.request
-import os
 import time
 import json
-import re
-import console # My module
-from headers import * # My module
-from getlyric import * # My module
-from getparams import * # My module
-from getmp3 import * # My module
-from mess import *
+import console  # My module
+from headers import headers  # My module
+from getlyric import get_lrc  # My module
+from getmp3 import get_mp3  # My module
 
-with open("./config.json",'r') as load_f:
-    cfg=json.load(load_f)
+with open("./config.json", 'r') as load_f:
+    cfg = json.load(load_f)
 
 play_url = cfg['play_url']
 
@@ -30,15 +25,14 @@ if __name__ == "__main__":
     start_time = time.time()  # 开始时间
 
     s = requests.session()
-    s = BeautifulSoup(s.get(play_url, headers=headers).content,"html5lib")
+    s = BeautifulSoup(s.get(play_url, headers=headers).content, "html5lib")
     main = s.select('ul.f-hide li a')
 
     for music in main:
         song_id = music['href'][music['href'].find('id=') + len('id='):]
-        name=music.text.replace('/','|')
+        name = music.text.replace('/', '|')
         get_mp3(name, song_id)
         get_lrc(name, song_id)
 
     end_time = time.time()  # 结束时间
     console.info("程序耗时%f秒." % (end_time - start_time))
-
