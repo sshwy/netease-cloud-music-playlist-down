@@ -21,7 +21,8 @@ with open("./config.json", 'r') as load_f:
 play_url = cfg['play_url']
 
 if __name__ == "__main__":
-    console.info('开始下载歌曲...')
+    console.sig('NCM Playlist Download Start!')
+    console.info('Your Playlist: %s' % play_url)
     start_time = time.time()  # 开始时间
 
     s = requests.session()
@@ -29,10 +30,10 @@ if __name__ == "__main__":
     main = s.select('ul.f-hide li a')
 
     for music in main:
-        song_id = music['href'][music['href'].find('id=') + len('id='):]
+        song_id = music['href'][music['href'].find('id=') + len('id=')]
         name = music.text.replace('/', '|')
         get_mp3(name, song_id)
         get_lrc(name, song_id)
 
     end_time = time.time()  # 结束时间
-    console.info("程序耗时%f秒." % (end_time - start_time))
+    console.sig("Total time: %fs." % (end_time - start_time))

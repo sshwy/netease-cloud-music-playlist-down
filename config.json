@@ -2,7 +2,7 @@
     "save_path":"./data/",
     "play_url":"https://music.163.com/playlist?id=2271446831",
     "lyric_save_path":"./data/.lyric/",
-    "log_file":"./log.txt",
-    "log_err_file":"./err.txt",
-    "log_warn_file":"./warn.txt"
+    "log_file":"./log/log.txt",
+    "log_err_file":"./log/err.txt",
+    "log_warn_file":"./log/warn.txt"
 }

@@ -20,6 +20,7 @@ def get_lrc(name, song_id):
     j = json.loads(lyric.text)
     if 'lrc' not in j:
         console.warn(name+"没有歌词!")
+        console.info(str(j))
         return
     with open(save_path+".lyric/"+name+'.lrc', 'w') as f:
         f.write(j['lrc']['lyric'])

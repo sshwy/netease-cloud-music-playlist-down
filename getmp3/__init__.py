@@ -16,8 +16,8 @@ if not os.path.exists(store_path):
 
 
 def get_mp3(name, song_id):
-    url = "http://music.163.com/weapi/song/enhance/player/url\
-            csrf_token="  # 网易歌曲前缀
+    # 网易歌曲前缀
+    url = "http://music.163.com/weapi/song/enhance/player/urlcsrf_token="
 
     first_param = '{ids:"[%s]", br:"128000", csrf_token:""}' % song_id
     data = {
@@ -30,12 +30,14 @@ def get_mp3(name, song_id):
         result = response.json()
 
         if result['code'] != 200:
-            console.warn('!!! 歌曲[%s]下载失败...' % name)
+            console.warn('歌曲[%s]下载失败[返回值: %s]' % (name, result['code']))
             return
 
         mp3_url = result['data'][0]['url']
         urllib.request.urlretrieve(
             mp3_url, os.path.join(store_path, name + '.mp3'))
         console.info('歌曲[%s]下载完成...' % name)
-    except:
-        console.err('!!!歌曲[%s]下载出现异常...' % name)
+    except json.decoder.JSONDecodeError:
+        console.err('歌曲[%s]返回值无法解析为Json' % name)
+        console.info("data:")
+        console.info(str(data))

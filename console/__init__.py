@@ -1,5 +1,5 @@
 import json
-from mess import INFO, WARN, ERR
+from mess import INFO, WARN, ERR, SIGNAL
 
 with open("./config.json", 'r') as load_f:
     cfg = json.load(load_f)
@@ -24,4 +24,10 @@ def err(s):
     with open(cfg['log_file'], 'a') as log_f:
         log_f.write(s+"\n")
     with open(cfg['log_err_file'], 'a') as log_f:
+        log_f.write(s+"\n")
+
+
+def sig(s):
+    print(SIGNAL+s)
+    with open(cfg['log_file'], 'a') as log_f:
         log_f.write(s+"\n")
